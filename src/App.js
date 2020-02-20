@@ -1,26 +1,44 @@
 import React from 'react';
-import logo from './logo.svg';
+import ReactDOM from 'react-dom'
+//import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const date = new Date()
+  const hours = date.getHours()
+  const rightNow = date.toLocaleTimeString()
+  let timeOfDay
+  const h1Style = {
+    fontSize: '40px',
+  }
+  
+  if (hours < 12) {
+    timeOfDay = "Morning"
+  } else if (hours >= 12 && hours < 17) {
+     timeOfDay = "afternoon"
+  } else {
+     timeOfDay = "night"
+  } 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1 style={h1Style}>Good {timeOfDay.split(' ')
+                       .map(w => w[0].toUpperCase() + w.substr(1).toLowerCase()).join(" ")} </h1>
+      <h2>{rightNow}</h2>
+      <h3>Written by Franz Rodgers</h3>
     </div>
-  );
+    )
 }
 
-export default App;
+
+function tick () {
+    ReactDOM.render(<App />, document.getElementById('root'))
+}
+
+setInterval(tick, 1000);
+
+
+
+
+export default App
+
+
